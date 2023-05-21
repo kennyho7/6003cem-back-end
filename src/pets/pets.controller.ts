@@ -8,12 +8,13 @@ import {
   Delete,
   UseGuards,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import {
-  ApiBasicAuth,
   ApiBearerAuth,
   ApiQuery,
   ApiTags,
@@ -22,11 +23,11 @@ import {
 } from '@nestjs/swagger/dist';
 import { Pet } from './entities/pet.entity';
 import { AuthGuard } from 'src/auth/auth-guard';
-import { query } from 'express';
 import { MoreThanOrEqual, LessThanOrEqual } from 'typeorm';
 import { Roles } from 'src/auth/roles-decorator';
 import { RolesGuard } from 'src/auth/roles-guard';
 import { Role } from 'src/auth/role.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiBearerAuth()
 @ApiTags('pets')
@@ -70,8 +71,8 @@ export class PetsController {
     return pets;
   }
 
-  //@UseGuards(AuthGuard, RolesGuard)
-  //@Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Post()
   create(@Body() createPetDto: CreatePetDto) {
     return this.petsService.create(createPetDto);
@@ -91,5 +92,11 @@ export class PetsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.petsService.remove(+id);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
 }

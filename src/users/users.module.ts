@@ -5,14 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { secret } from 'src/auth/secret';
+import { UserFav } from './entities/user-fav-entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, UserFav]),
     JwtModule.register({
       global: true,
       secret: secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '30d' },
     }),
   ],
   controllers: [UsersController],

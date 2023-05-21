@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { Pet } from './entities/pet.entity';
-import { Between, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 
 @Injectable()
@@ -27,6 +27,7 @@ export class PetsService {
       age: createPetDto.age,
       breed: createPetDto.breed,
       location: createPetDto.location,
+      user: [],
     };
 
     return await this.petsRepository.save(pet);
@@ -39,6 +40,7 @@ export class PetsService {
       age: updatePetDto.age,
       breed: updatePetDto.breed,
       location: updatePetDto.location,
+      user: [],
     };
 
     return await this.petsRepository.save(pet);

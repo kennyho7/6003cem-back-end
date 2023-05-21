@@ -8,6 +8,7 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenDto } from './dto/access-token-dto';
+import { UserFav } from 'src/users/entities/user-fav-entity';
 
 const saltRounds = 10;
 @Injectable()
@@ -15,6 +16,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(UserFav)
+    private userfavRepository: Repository<UserFav>,
     private jwtService: JwtService,
   ) {}
   async login(authUserDto: AuthUserDto): Promise<AccessTokenDto> {
@@ -33,7 +36,12 @@ export class UsersService {
       throw new BadRequestException('password wrong');
     }
 
-    const payload = { username: user.username, sub: user.id };
+    const payload = {
+      username: user.username,
+      userId: user.id,
+      sub: user.id,
+      roles: [user.role],
+    };
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
@@ -53,6 +61,8 @@ export class UsersService {
       username: createUserDto.username,
       password: hashedPassword,
       role: createUserDto.role,
+      pets: [],
+      favoritePets: [],
     };
 
     return await this.usersRepository.save(user);
@@ -66,6 +76,8 @@ export class UsersService {
       username: updateUserDto.username,
       password: updateUserDto.password,
       role: updateUserDto.role,
+      pets: [],
+      favoritePets: [],
     };
 
     return await this.usersRepository.save(user);
@@ -73,5 +85,26 @@ export class UsersService {
 
   async remove(id: number) {
     return await this.usersRepository.delete(+id);
+  }
+
+  async addPetToFavorites(petid: number, userid: number) {
+    try {
+      const userFavourite = this.userfavRepository.create({
+        petid: petid,
+        userid: userid,
+      });
+      await this.userfavRepository.save(userFavourite);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removePetFromFavorites(petid: number, userid: number) {
+    try {
+      this.userfavRepository.delete({
+        petid: petid,
+        userid: userid,
+      });
+    } catch (error) {}
   }
 }

@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist/decorators';
+import { User } from 'src/users/entities/user.entity';
 
 export class CreatePetDto {
   @ApiProperty()
@@ -9,4 +10,6 @@ export class CreatePetDto {
   breed: string;
   @ApiProperty()
   location: string;
+  @ApiProperty()
+  user: User[];
 }

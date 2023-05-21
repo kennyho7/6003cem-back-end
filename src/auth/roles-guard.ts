@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Role } from './role.enum';
+import { clearConfigCache } from 'prettier';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -11,6 +12,7 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (!requiredRoles) {
       // No roles are required to access this endpoint
       return true;
@@ -20,6 +22,6 @@ export class RolesGuard implements CanActivate {
       // User is not authenticated
       return false;
     }
-    return requiredRoles.includes(user.role);
+    return requiredRoles.some((r) => user.roles.includes(r));
   }
 }

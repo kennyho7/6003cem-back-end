@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist/decorators';
-import { Role } from 'src/auth/role.enum';
+import { Pet } from 'src/pets/entities/pet.entity';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -12,4 +12,8 @@ export class CreateUserDto {
   password: string;
   @ApiProperty()
   role: string;
+  @ApiProperty()
+  pets: Pet[];
+  @ApiProperty()
+  favoritePets: Pet[];
 }

@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Role } from 'src/auth/role.enum';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Pet } from 'src/pets/entities/pet.entity';
 
 @Entity()
 export class User {
@@ -20,4 +20,10 @@ export class User {
 
   @Column()
   role: string;
+
+  @OneToMany(() => Pet, (pet) => pet.user, { cascade: true })
+  pets: Pet[];
+
+  @Column({ type: 'simple-array', nullable: true })
+  favoritePets: number[];
 }
