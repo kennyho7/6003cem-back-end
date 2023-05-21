@@ -11,7 +11,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         '116867108991-rj239vhe5h5ub20ue95864pq1mnrembr.apps.googleusercontent.com',
       clientSecret: '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',
       callbackURL: 'http://localhost:3000/auth/google/callback',
-      scope: ['email', 'profile'],
+      //scope: ['email', 'profile'],
     });
   }
   async validate(
@@ -27,6 +27,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const authUserDto: AuthUserDto = {
       username: profile.emails[0].value,
       password: '', // Set the password field based on your validation logic
+    
     };
 
     const user = await this.authService.validateUserCredentials(authUserDto);
