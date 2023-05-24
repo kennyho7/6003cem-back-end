@@ -27,7 +27,6 @@ export class PetsService {
       age: createPetDto.age,
       breed: createPetDto.breed,
       location: createPetDto.location,
-      user: [],
     };
 
     return await this.petsRepository.save(pet);
@@ -40,7 +39,7 @@ export class PetsService {
       age: updatePetDto.age,
       breed: updatePetDto.breed,
       location: updatePetDto.location,
-      user: [],
+      // userFavorites: [],
     };
 
     return await this.petsRepository.save(pet);

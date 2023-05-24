@@ -11,5 +11,5 @@ export class CreatePetDto {
   @ApiProperty()
   location: string;
   @ApiProperty()
-  user: User[];
+  likedByUsers: User[];
 }

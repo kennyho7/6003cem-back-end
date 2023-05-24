@@ -1,10 +1,15 @@
-import { Entity, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
+import { User } from './user.entity';
+import { Pet } from 'src/pets/entities/pet.entity';
 
 @Entity()
 export class UserFav {
-  @PrimaryColumn()
-  userid: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @PrimaryColumn()
-  petid: number;
+  @Column()
+  userId: number;
+
+  @Column()
+  petId: number;
 }

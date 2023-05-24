@@ -6,9 +6,9 @@ import { PetsModule } from './pets/pets.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Pet } from './pets/entities/pet.entity';
-import { UserFav } from './users/entities/user-fav-entity';
 import { AuthModule } from './auth/auth.module';
 import { GoogleStrategy } from './auth/google-strategy';
+import { UserFav } from './users/entities/user-fav-entity';
 
 @Module({
   imports: [

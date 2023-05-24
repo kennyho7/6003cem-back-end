@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Pet } from 'src/pets/entities/pet.entity';
 
 @Entity()
@@ -20,10 +26,4 @@ export class User {
 
   @Column()
   role: string;
-
-  @OneToMany(() => Pet, (pet) => pet.user, { cascade: true })
-  pets: Pet[];
-
-  @Column({ type: 'simple-array', nullable: true })
-  favoritePets: number[];
 }

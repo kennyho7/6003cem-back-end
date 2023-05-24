@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 
 @Entity()
@@ -18,6 +18,9 @@ export class Pet {
   @Column()
   location: string;
 
-  @ManyToOne(() => User, (user) => user.pets)
-  user: User[];
+  // @ManyToMany(() => User, (user) => user.favorites)
+  // users: User[];
+
+  // @OneToMany(() => UserFav, (userFav) => userFav.pet)
+  // userFavorites: UserFav[];
 }
