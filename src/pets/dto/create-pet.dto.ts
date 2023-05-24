@@ -10,6 +10,4 @@ export class CreatePetDto {
   breed: string;
   @ApiProperty()
   location: string;
-  @ApiProperty()
-  likedByUsers: User[];
 }

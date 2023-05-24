@@ -12,7 +12,8 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenDto } from './dto/access-token-dto';
-import { Pet } from 'src/pets/entities/pet.entity';
+import { Pet } from '../pets/entities/pet.entity';
+// import { Pet } from 'src/pets/entities/pet.entity';
 import { UserFav } from './entities/user-fav-entity';
 
 const saltRounds = 10;

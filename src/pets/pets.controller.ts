@@ -22,11 +22,11 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger/dist';
 import { Pet } from './entities/pet.entity';
-import { AuthGuard } from 'src/auth/auth-guard';
+import { AuthGuard } from '../auth/auth-guard';
 import { MoreThanOrEqual, LessThanOrEqual } from 'typeorm';
-import { Roles } from 'src/auth/roles-decorator';
-import { RolesGuard } from 'src/auth/roles-guard';
-import { Role } from 'src/auth/role.enum';
+import { Roles } from '../auth/roles-decorator';
+import { RolesGuard } from '../auth/roles-guard';
+import { Role } from '../auth/role.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiBearerAuth()

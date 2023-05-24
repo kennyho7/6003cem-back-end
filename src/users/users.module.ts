@@ -4,8 +4,8 @@ import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
-import { secret } from 'src/auth/secret';
-import { Pet } from 'src/pets/entities/pet.entity';
+import { secret } from '../auth/secret';
+import { Pet } from '../pets/entities/pet.entity';
 import { UserFav } from './entities/user-fav-entity';
 
 @Module({

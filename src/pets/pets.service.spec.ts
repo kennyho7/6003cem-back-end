@@ -13,23 +13,23 @@ describe('PetsService', () => {
     service = module.get<PetsService>(PetsService);
   });
 
-  // it('create pet', async () => {
-  //   const pet = await service.create({
-  //     breed: 'Test',
-  //     age: 20,
-  //     name: 'kenny',
-  //     location: 'kt',
-  //   });
+  it('create pet', async () => {
+    const pet = await service.create({
+      breed: 'Test',
+      age: 20,
+      name: 'kenny',
+      location: 'kt',
+    });
 
-  //   expect(pet).toEqual(
-  //     expect.objectContaining({
-  //       breed: 'Test',
-  //       age: 20,
-  //       name: 'kenny',
-  //       location: 'kt',
-  //     }),
-  //   );
-  // });
+    expect(pet).toEqual(
+      expect.objectContaining({
+        breed: 'Test',
+        age: 20,
+        name: 'kenny',
+        location: 'kt',
+      }),
+    );
+  });
 
   // it('update pet', async () => {
   //   const pet = await service.create({
