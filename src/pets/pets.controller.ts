@@ -10,6 +10,7 @@ import {
   Query,
   UploadedFile,
   UseInterceptors,
+  Res,
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
@@ -28,6 +29,12 @@ import { Roles } from '../auth/roles-decorator';
 import { RolesGuard } from '../auth/roles-guard';
 import { Role } from '../auth/role.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+import { join } from 'path';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @ApiBearerAuth()
 @ApiTags('pets')
@@ -94,9 +101,45 @@ export class PetsController {
     return this.petsService.remove(+id);
   }
 
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async uploadImage(
+  //   @UploadedFile() image: Express.Multer.File,
+  // ): Promise<{ imagePath: string }> {
+  //   const imagePath = `./upload/${image.filename}`;
+  //   return { imagePath };
+  // }
+
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './upload-image',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          callback(null, uniqueSuffix + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  async uploadImage(@UploadedFile() image: Express.Multer.File) {
+    const imagePath = `./pets/upload-image/${image.filename}`;
+    // Save the image as a JPG file
+    // ...
+
+    return { imagePath };
+  }
+
+  @Get('upload-image/:imagePath')
+  async getImage(@Param('imagePath') imagePath: string, @Res() res: Response) {
+    const filePath = join(process.cwd(), 'upload-image', imagePath);
+    return res.sendFile(filePath);
   }
 }
+
+// @Post('upload')
+// @UseInterceptors(FileInterceptor('image'))
+// uploadFile(@UploadedFile() file: Express.Multer.File) {
+//   console.log(file);
+// }
