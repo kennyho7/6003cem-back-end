@@ -57,16 +57,4 @@ describe('PetsService', () => {
   //   );
   // });
 
-  // it('delete pet', async () => {
-  //   const pet = await service.create({
-  //     variety: 'Test3',
-  //     gender: 'Male',
-  //     age: 2,
-  //     imageFileName: 'test3.jpeg',
-  //   });
-
-  //   const deletePet = await service.remove(pet.id);
-
-  //   expect(deletePet).not.toBe(null);
-  // });
 });
