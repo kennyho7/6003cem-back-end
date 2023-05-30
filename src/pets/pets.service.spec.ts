@@ -33,28 +33,4 @@ describe('PetsService', () => {
     );
   });
 
-  // it('update pet', async () => {
-  //   const pet = await service.create({
-  //     variety: 'Test2',
-  //     gender: 'Male',
-  //     age: 2,
-  //     imageFileName: 'test2.jpeg',
-  //   });
-
-  //   const updatePet = await service.update(pet.id, {
-  //     variety: 'Test2',
-  //     gender: 'Male',
-  //     age: 2,
-  //     live: true,
-  //   });
-
-  //   expect(updatePet).toEqual(
-  //     expect.objectContaining({
-  //       variety: 'Test2',
-  //       gender: 'Male',
-  //       age: 23,
-  //     }),
-  //   );
-  // });
-
 });
